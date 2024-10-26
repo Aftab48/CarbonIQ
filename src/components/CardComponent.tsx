@@ -1,10 +1,4 @@
-import {
-  FacebookIcon,
-  InstagramIcon,
-  LucideTwitter,
-  TwitterIcon,
-  X,
-} from "lucide-react";
+import { FacebookIcon, InstagramIcon, TwitterIcon, X } from "lucide-react";
 
 const CardComponent = () => {
   return (
