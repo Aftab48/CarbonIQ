@@ -119,9 +119,9 @@ const CarbonFootprint = () => {
         </div>
         <hr />
 
-        <div className="text-center mt-6 text-sm text-gray-500">
-          © 2024 CarbonIQ. All rights reserved. Made with sustainability in
-          mind.
+        <div className="text-left mt-6 text-sm text-gray-300">
+          © 2024 CarbonIQ. All rights reserved. Empowering sustainable futures,
+          one footprint at a time.
         </div>
       </footer>
     </div>
