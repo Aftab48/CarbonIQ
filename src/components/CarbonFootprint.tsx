@@ -1,9 +1,9 @@
 const CarbonFootprint = () => {
   return (
-    <div className="bg-gradient-to-b from-[#3ED484] from-30% to-[#083051] to-50% text-white font-sans">
+    <div className="bg-gradient-to-b from-[#3ED484] from-30% to-[#083051] to-70% text-white font-sans">
       <div className="text-center py-10 px-6">
-        <h1 className="text-3xl md:text-4xl font-bold">
-          Reducing <span className="text-lime-300">Your Carbon</span> Footprint
+        <h1 className="text-3xl md:text-4xl font-bold text-[#000000] ">
+          Reducing <span className="text-[#605D5D]">Your Carbon</span> Footprint
           Matters.
         </h1>
         <p className="mt-4 max-w-2xl mx-auto text-lg">
@@ -17,7 +17,7 @@ const CarbonFootprint = () => {
           <img
             src="/svg/climate.svg"
             alt="Climate Change Icon"
-            className="mx-auto mb-4 h-16"
+            className="mx-auto mb-4 h-28"
           />
           <h2 className="text-xl text-black font-semibold">
             Combating Climate Change
@@ -31,7 +31,7 @@ const CarbonFootprint = () => {
           <img
             src="/svg/resource.svg"
             alt="Conserving Resources Icon"
-            className="mx-auto mb-4 h-16"
+            className="mx-auto mb-4 h-28"
           />
           <h2 className="text-xl text-black font-semibold">
             Conserving Resources
@@ -45,7 +45,7 @@ const CarbonFootprint = () => {
           <img
             src="/svg/future.svg"
             alt="Sustainable Future Icon"
-            className="mx-auto mb-4 h-16"
+            className="mx-auto mb-4 h-28"
           />
           <h2 className="text-xl text-black font-semibold">
             Ensuring a Sustainable Future
@@ -56,21 +56,26 @@ const CarbonFootprint = () => {
         </div>
       </div>
 
-      <div className="text-center py-10 px-6">
-        <h2 className="text-2xl font-bold">
-          Eco-Friendly Partnerships for Rewards
-        </h2>
-        <p className="mt-4 text-gray-300">
-          # Gift Cards & Discounts from eco-conscious companies.
-          <br />
-          # Early Access to sustainability workshops and events.
-          <br /># VIP Deals from ethical brands when you achieve carbon-saving
-          milestones.
-        </p>
+      <div className="flex text-center justify-between py-10 px-6">
+        <div>
+          <img src="/svg/hand.svg" />
+        </div>
+        <div>
+          <h2 className="text-5xl font-bold mb-10">
+            Eco-Friendly Partnerships for Rewards
+          </h2>
+          <p className="mt-4 text-gray-400 text-right text-xl">
+            # Gift Cards & Discounts from eco-conscious companies.
+            <br />
+            # Early Access to sustainability workshops and events.
+            <br /># VIP Deals from ethical brands when you achieve carbon-saving
+            milestones.
+          </p>
+        </div>
       </div>
 
       <div className="text-center py-6">
-        <h2 className="text-2xl font-semibold text-lime-400">
+        <h2 className="text-5xl font-semibold">
           So, Get Started on Your Carbon-Saving Journey Today!
         </h2>
       </div>
@@ -80,7 +85,7 @@ const CarbonFootprint = () => {
           <div className="flex items-center">
             <div>
               <h2 className="text-4xl font-semibold">CarbonIQ</h2>
-              <p>Target Net Zero</p>
+              <p className="text-gray-400">Target Net Zero</p>
             </div>
             <img
               src="/svg/logo_1.svg"
@@ -88,8 +93,8 @@ const CarbonFootprint = () => {
               className="mb-0 h-24"
             />
           </div>
-
-          <div>
+          <div className="border h-64"></div>
+          <div className="text-gray-400">
             <h3 className="font-semibold mb-2">Links</h3>
             <ul>
               <li>Home</li>
@@ -100,8 +105,8 @@ const CarbonFootprint = () => {
               <li>Rewards</li>
             </ul>
           </div>
-
-          <div>
+          <div className="border h-64"></div>
+          <div className="text-gray-400">
             <h3 className="font-semibold mb-2">Terms and Policies</h3>
             <ul>
               <li>Terms and Conditions</li>
@@ -112,6 +117,7 @@ const CarbonFootprint = () => {
             </ul>
           </div>
         </div>
+        <hr />
 
         <div className="text-center mt-6 text-sm text-gray-500">
           © 2024 CarbonIQ. All rights reserved. Made with sustainability in
