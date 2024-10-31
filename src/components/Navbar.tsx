@@ -11,13 +11,13 @@ const Navbar = () => {
 
       <div className="flex items-center space-x-8">
         <div className="hidden md:flex space-x-8 text-gray-700">
-          <a href="#" className="hover:text-gray-900">
+          <a href="/" className="hover:text-gray-900">
             HOME
           </a>
-          <a href="#" className="hover:text-gray-900">
+          <a href="/services" className="hover:text-gray-900">
             SERVICES
           </a>
-          <a href="#" className="hover:text-gray-900">
+          <a href="/rewards" className="hover:text-gray-900">
             REWARDS
           </a>
         </div>

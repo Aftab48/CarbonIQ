@@ -25,7 +25,7 @@ const CardComponent = () => {
           <br /> Updates.
         </h2>
       </div>
-      <div className="col-span-2 row-span-3 col-start-3  bg-[url('/images/center-img.png')] bg-no-repeat bg-center bg-contain p-6 rounded-lg shadow-lg h-96 w-full"></div>
+      <div className="col-span-2 row-span-3 col-start-3  bg-[url('/images/center-img.png')] bg-no-repeat bg-center bg-contain p-6 rounded-lg shadow-lg h-[30rem] w-full"></div>
       <div className="col-span-2 row-span-4 col-start-5 rounded-md bg-gradient-to-b from-[#3DC19E] to-[#2399DD]">
         <div className="grid grid-cols-1 p-4">
           <div>

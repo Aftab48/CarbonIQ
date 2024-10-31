@@ -28,3 +28,30 @@ export const buttonVariants = cva(
     },
   }
 );
+
+export const carbonEmitters = [
+  {
+    line1: "HIGHEST CARBON",
+    line2: "EMITTER",
+    country: "CHINA",
+    emissions: "10.7 billion metric tons",
+    percentage: "30%",
+    progressValue: 30,
+  },
+  {
+    line1: "SECOND HIGHEST",
+    line2: "CARBON EMITTER",
+    country: "USA",
+    emissions: "5 billion metric tons",
+    percentage: "14%",
+    progressValue: 14,
+  },
+  {
+    line1: "THIRD HIGHEST",
+    line2: "CARBON EMITTER",
+    country: "INDIA",
+    emissions: "2.9 billion metric tons",
+    percentage: "7%",
+    progressValue: 7,
+  },
+];
