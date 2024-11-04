@@ -16,45 +16,66 @@ import { Checkbox } from "@/components/ui/checkbox";
 // Define the schema with the actual form fields
 const formSchema = z.object({
   electricBill: z
-    .number()
-    .min(0, { message: "Electric bill must be a positive number." }),
+    .string()
+    .min(1, { message: "Electric bill is required." })
+    .transform((val) => Number(val))
+    .refine((val) => !isNaN(val) && val >= 0, {
+      message: "Electric bill must be a positive number.",
+    }),
+
   gasBill: z
-    .number()
-    .min(0, { message: "Gas bill must be a positive number." }),
+    .string()
+    .min(1, { message: "Gas bill is required." })
+    .transform((val) => Number(val))
+    .refine((val) => !isNaN(val) && val >= 0, {
+      message: "Gas bill must be a positive number.",
+    }),
+
   oilBill: z
-    .number()
-    .min(0, { message: "Oil bill must be a positive number." }),
+    .string()
+    .min(1, { message: "Oil bill is required." })
+    .transform((val) => Number(val))
+    .refine((val) => !isNaN(val) && val >= 0, {
+      message: "Oil bill must be a positive number.",
+    }),
+
   carMileage: z
-    .number()
-    .min(0, { message: "Car mileage must be a positive number." }),
+    .string()
+    .min(1, { message: "Car mileage is required." })
+    .transform((val) => Number(val))
+    .refine((val) => !isNaN(val) && val >= 0, {
+      message: "Car mileage must be a positive number.",
+    }),
+
   shortFlights: z
-    .number()
-    .min(0, { message: "Number of short flights must be a positive number." }),
+    .string()
+    .min(1, { message: "Number of short flights is required." })
+    .transform((val) => Number(val))
+    .refine((val) => !isNaN(val) && val >= 0, {
+      message: "Number of short flights must be a positive number.",
+    }),
+
   longFlights: z
-    .number()
-    .min(0, { message: "Number of long flights must be a positive number." }),
-  recycleNewspapers: z.boolean(),
-  recycleAluminums: z.boolean(),
+    .string()
+    .min(1, { message: "Number of long flights is required." })
+    .transform((val) => Number(val))
+    .refine((val) => !isNaN(val) && val >= 0, {
+      message: "Number of long flights must be a positive number.",
+    }),
+
+  recycleNewspapers: z.boolean().default(false),
+  recycleAluminums: z.boolean().default(false),
 });
 
-const CarbonCalculator = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      electricBill: 0,
-      gasBill: 0,
-      oilBill: 0,
-      carMileage: 0,
-      shortFlights: 0,
-      longFlights: 0,
-      recycleNewspapers: false,
-      recycleAluminums: false,
-    },
-  });
+type FormData = z.infer<typeof formSchema>;
+interface CarbonCalculatorProps {
+  onSubmit: (data: FormData) => void;
+}
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-  }
+const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ onSubmit }) => {
+  const form = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+  });
 
   return (
     <Form {...form}>

@@ -1,8 +1,35 @@
 import CarbonCalculator from "@/components/CarbonCalculator";
-import EmissionStatsArea from "@/components/charts/EmissionStatsArea";
-import EmissionStatsPie from "@/components/charts/EmissionStatsPie";
+import CalculatorPie from "@/components/charts/CalculatorPie";
+import { useState } from "react";
 
-const Calculator = () => {
+interface FormData {
+  electricBill: number;
+  gasBill: number;
+  oilBill: number;
+  carMileage: number;
+  shortFlights: number;
+  longFlights: number;
+  recycleNewspapers: boolean;
+  recycleAluminums: boolean;
+}
+
+const Calculator: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>({
+    electricBill: 0,
+    gasBill: 0,
+    oilBill: 0,
+    carMileage: 0,
+    shortFlights: 0,
+    longFlights: 0,
+    recycleNewspapers: false,
+    recycleAluminums: false,
+  });
+
+  const handleFormSubmit = (data: FormData) => {
+    console.log("Form data:", data); // Check if this logs the data
+    setFormData(data);
+  };
+
   return (
     <section className="bg-slate-50 w-full">
       <div>
@@ -38,24 +65,39 @@ const Calculator = () => {
               </h3>
             </div>
             <div className="p-4">
-              <CarbonCalculator />
+              <CarbonCalculator onSubmit={handleFormSubmit} />
             </div>
           </div>
 
           {/* Right Side - Analytics */}
-          <div className="flex flex-col justify-center items-center">
-            <div>
-              <h1 className="text-4xl">Temporary graphs because i am tired</h1>
-              <p className="text-xl"> will do the css later</p>
-            </div>
-            <div className="rounded-2xl bg-white">
-              <div className="w-[600px] h-full">
-                <EmissionStatsArea />
+          <div className="flex flex-row lg:flex-col justify-center items-center">
+            <div className="rounded-2xl">
+              <div className="w-[350px] h-[430px]">
+                <CalculatorPie data={formData} />
               </div>
             </div>
-            <div className="rounded-2xl bg-white">
-              <div className="w-[350px] h-[430px]">
-                <EmissionStatsPie />
+            <div className="bg-[#AEFBD2] rounded-2xl">
+              <div className="p-4 text-black">
+                <div className="mx-2 my-4">
+                  <h3 className="uppercase font-bold mb-4 text-2xl">
+                    Your Carbon Footprint
+                  </h3>
+                  <p className="text-[#2D2D2D]">CO2e: 0.00 kg</p>
+                  <p className="text-[#2D2D2D]">Pounds: 0.00 lbs</p>
+                </div>
+                <div className="mx-2 my-4">
+                  <h3 className="uppercase font-bold text-2xl">
+                    Category: <span className="text-green-600">Ideal</span>
+                  </h3>
+                  <p className="text-[#2D2D2D]">
+                    You're doing great! Keep up the eco-friendly lifestyle!
+                  </p>
+                </div>
+                <div className="mx-2 my-4">
+                  <p className="text-[#2D2D2D] italic hover:underline hover:cursor-pointer ">
+                    See more tips
+                  </p>
+                </div>
               </div>
             </div>
           </div>
