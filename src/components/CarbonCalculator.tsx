@@ -235,7 +235,7 @@ const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ onSubmit }) => {
           )}
         />
 
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-fit text-lg flex items-center justify-center bg-[#3DC19E]">
           Submit
         </Button>
       </form>
