@@ -22,9 +22,9 @@ const Statistics = () => {
           <div className="h-2 w-72 bg-[#126EBA] mt-4" />
           <div className="h-2 w-60 bg-white mt-4" />
         </div>
-        <div className="flex flex-col lg:flex-row mx-8 items-center justify-center">
+        <div className="flex items-start px-2">
           {/* left section */}
-          <div className="flex flex-col justify-around items-center">
+          <div className="flex flex-col justify-around items-center w-3/4">
             {/* cards */}
             <div className="flex flex-col lg:flex-row items-center gap-x-8 py-4 justify-center">
               {carbonEmitters.map((emitter, index) => (
@@ -61,7 +61,7 @@ const Statistics = () => {
 
             {/* graphs */}
             <div className="mt-2 pb-6">
-              <div className="rounded-2xl py-4 bg-white">
+              <div className="rounded-2xl py-4 bg-white mx-4 mb-4">
                 <h1 className="text-3xl p-4 font-bold">
                   CARBON EMISSIONS BY SECTORS
                 </h1>
@@ -85,14 +85,14 @@ const Statistics = () => {
           </div>
 
           {/* right section */}
-          <div className="flex flex-col p-2 m-2">
-            <Card className="bg-[#25C1D6] m-2 text-white rounded-2xl">
+          <div className="flex flex-col p-2 mx-2">
+            <Card className="bg-[#25C1D6] m-2 text-white rounded-2xl w-full">
               <CardHeader>
-                <CardTitle className="font-bold text-center text-white uppercase text-2xl">
+                <CardTitle className="font-bold text-white uppercase text-2xl">
                   Trends in global <br className="hidden lg:block" /> carbon
                   goals
                 </CardTitle>
-                <CardContent className="text-base text-white">
+                <CardContent className="text-base p-0 text-white ">
                   <p>
                     <span className="text-[#081E4F]">Yearly Increases:</span>
                     Emissions have been rising by ~
@@ -125,13 +125,13 @@ const Statistics = () => {
               </CardHeader>
             </Card>
 
-            <Card className="bg-[#25C1D6] m-2 text-white rounded-2xl">
+            <Card className="bg-[#25C1D6] m-2 text-white rounded-2xl w-full">
               <CardHeader>
-                <CardTitle className="font-bold text-center text-white uppercase text-2xl">
+                <CardTitle className="font-bold text-white uppercase text-2xl">
                   global emissions <br className="hidden lg:block" /> target and
                   climate <br className="hidden lg:block" /> goals
                 </CardTitle>
-                <CardContent className="text-base text-white">
+                <CardContent className="text-base p-0 text-white">
                   <p>
                     <span className="text-[#081E4F]">Paris Agreement:</span>
                     Signed by 196 countries with the aim of limiting global
@@ -162,7 +162,11 @@ const Statistics = () => {
                 </CardContent>
               </CardHeader>
             </Card>
-            <Card className="bg-pink-500 m-2 text-white rounded-2xl">
+            <p className="p-6 pt-2 text-md font-semibold">
+              Global Renewable Energy Mix: Aiming to Lower Carbon Footprints
+              Worldwide
+            </p>
+            {/* <Card className="bg-pink-500 m-2 text-white rounded-2xl">
               <CardHeader>
                 <CardTitle className="font-bold text-center text-white uppercase text-2xl">
                   This is a temporary card to trigger your OCD
@@ -175,7 +179,7 @@ const Statistics = () => {
                   />
                 </CardContent>
               </CardHeader>
-            </Card>
+            </Card> */}
           </div>
         </div>
       </div>

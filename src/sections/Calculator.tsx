@@ -56,9 +56,9 @@ const Calculator: React.FC = () => {
           </div>
         </div>
 
-        <div className="p-6 flex w-full justify-center items-center flex-col lg:flex-row">
+        <div className="flex justify-center gap-x-10 items-center">
           {/* Left Side - Calculator */}
-          <div className="bg-[#082F4F] rounded-2xl flex justify-center items-center flex-col">
+          <div className="bg-[#082F4F] rounded-2xl flex p-4 flex-col mb-2">
             <div className="p-4 mb-4">
               <h3 className="uppercase font-bold text-2xl text-[#A8CCD2]">
                 carbon footprint calculator
@@ -76,7 +76,7 @@ const Calculator: React.FC = () => {
                 <CalculatorPie data={formData} />
               </div>
             </div>
-            <div className="bg-[#AEFBD2] rounded-2xl">
+            <div className="bg-[#AEFBD2] rounded-2xl mb-3">
               <div className="p-4 text-black">
                 <div className="mx-2 my-4">
                   <h3 className="uppercase font-bold mb-4 text-2xl">
@@ -86,15 +86,15 @@ const Calculator: React.FC = () => {
                   <p className="text-[#2D2D2D]">Pounds: 0.00 lbs</p>
                 </div>
                 <div className="mx-2 my-4">
-                  <h3 className="uppercase font-bold text-2xl">
-                    Category: <span className="text-green-600">Ideal</span>
+                  <h3 className=" font-light text-2xl">
+                    CATEGORY: <span className="text-green-600 font-bold">Ideal</span>
                   </h3>
                   <p className="text-[#2D2D2D]">
                     You're doing great! Keep up the eco-friendly lifestyle!
                   </p>
                 </div>
                 <div className="mx-2 my-4">
-                  <p className="text-[#2D2D2D] italic hover:underline hover:cursor-pointer ">
+                  <p className="text-[#2D2D2D] drop-shadow-lg italic hover:underline hover:cursor-pointer ">
                     See more tips
                   </p>
                 </div>
