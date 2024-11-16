@@ -1,6 +1,7 @@
 import { cva } from "class-variance-authority";
 
 export interface Product {
+  id: Key | null | undefined;
   name: string;
   brand: string;
   model: string;
