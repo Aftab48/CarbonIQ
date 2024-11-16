@@ -1,0 +1,108 @@
+ const handleAddRecommendedProduct = (product: Product) => {
+    setRecommendedProducts([...recommendedProducts, product]);
+  };
+
+  const handleRemoveProduct = (index: number) => {
+    const updatedProducts = [...addedProducts];
+    updatedProducts.splice(index, 1);
+    setAddedProducts(updatedProducts);
+  };
+
+  const handleRemoveRecommendedProduct = (index: number) => {
+    const updatedProducts = [...recommendedProducts];
+    updatedProducts.splice(index, 1);
+    setRecommendedProducts(updatedProducts);
+  };
+
+  const getRecommendations = (product: Product) => {
+    return recommendationList.filter(
+      (recProduct) =>
+        recProduct.category === product.category &&
+        recProduct.footprint < product.footprint
+    );
+  };
+
+
+{/* Products Flexbox */}
+      <div className="flex flex-col gap-3 bg-green-500 p-5 w-[48.5%] m-2 rounded-lg min-h-[10cm] box-border">
+        <h3 className="text-xl font-bold mb-6">Added Products</h3>
+        {addedProducts.length > 0 ? (
+          addedProducts.map((product, index) => (
+            <div
+              key={index}
+              className="flex items-center justify-between border border-gray-300 rounded-md p-3 bg-gray-100 relative"
+            >
+              <span className="text-lg">
+                {product.name}, {product.brand}, {product.model}
+              </span>
+              <button
+                className="bg-red-500 text-white rounded-md px-3 py-1 hover:bg-red-600"
+                onClick={() => handleRemoveProduct(index)}
+              >
+                ✕
+              </button>
+              <div className="absolute mt-1 left-0 top-full w-[90%] p-2 bg-green-50 border border-gray-300 rounded-md hidden z-10">
+                {getRecommendations(product).map((rec, recIndex) => (
+                  <div
+                    key={recIndex}
+                    className="flex items-center justify-between mb-2 last:mb-0"
+                  >
+                    <span>
+                      {rec.brand} {rec.model}
+                    </span>
+                    <button
+                      className="bg-green-600 text-white rounded-md px-3 py-1 hover:bg-green-700"
+                      onClick={() => handleAddRecommendedProduct(rec)}
+                    >
+                      +
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No products added yet.</p>
+        )}
+      </div>
+
+      {/* Recommended Products Flexbox */}
+      <div className="bg-green-500 p-4 w-[48.5%] m-2 rounded-lg min-h-[10cm] box-border">
+        <h3 className="text-xl font-bold mb-6">Recommended Products</h3>
+        {recommendedProducts.length > 0 ? (
+          recommendedProducts.map((product, index) => (
+            <div
+              key={index}
+              className="flex items-center justify-between border border-gray-300 rounded-md p-3 bg-gray-100 mb-3"
+            >
+              <span>
+                {product.brand} {product.model}
+              </span>
+              <button
+                className="bg-red-500 text-white rounded-md px-3 py-1 hover:bg-red-600"
+                onClick={() => handleRemoveRecommendedProduct(index)}
+              >
+                ✕
+              </button>
+            </div>
+          ))
+        ) : (
+          <p>No recommended products added yet.</p>
+        )}
+      </div>
+
+
+
+
+ {/* Analysis Flexbox */}
+      <div className="bg-blue-900 text-white p-4 w-full rounded-lg box-border">
+        <h3 className="text-lg font-bold mb-3">Footprint Analysis</h3>
+        <p className="mb-1">
+          Total Added Footprint: {totalAddedFootprint} kg CO2e
+        </p>
+        <p className="mb-1">
+          Total Recommended Footprint: {totalRecommendedFootprint} kg CO2e
+        </p>
+        <p className="mb-1">Footprint Saved: {footprintSaved} kg CO2e</p>
+        <p className="text-green-500 font-bold">Keep saving more!</p>
+      </div>

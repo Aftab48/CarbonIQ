@@ -1,245 +1,169 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { useState, ChangeEvent } from "react";
 
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
-
-// Define the schema with the actual form fields
-const formSchema = z.object({
-  electricBill: z
-    .string()
-    .min(1, { message: "Electric bill is required." })
-    .transform((val) => Number(val))
-    .refine((val) => !isNaN(val) && val >= 0, {
-      message: "Electric bill must be a positive number.",
-    }),
-
-  gasBill: z
-    .string()
-    .min(1, { message: "Gas bill is required." })
-    .transform((val) => Number(val))
-    .refine((val) => !isNaN(val) && val >= 0, {
-      message: "Gas bill must be a positive number.",
-    }),
-
-  oilBill: z
-    .string()
-    .min(1, { message: "Oil bill is required." })
-    .transform((val) => Number(val))
-    .refine((val) => !isNaN(val) && val >= 0, {
-      message: "Oil bill must be a positive number.",
-    }),
-
-  carMileage: z
-    .string()
-    .min(1, { message: "Car mileage is required." })
-    .transform((val) => Number(val))
-    .refine((val) => !isNaN(val) && val >= 0, {
-      message: "Car mileage must be a positive number.",
-    }),
-
-  shortFlights: z
-    .string()
-    .min(1, { message: "Number of short flights is required." })
-    .transform((val) => Number(val))
-    .refine((val) => !isNaN(val) && val >= 0, {
-      message: "Number of short flights must be a positive number.",
-    }),
-
-  longFlights: z
-    .string()
-    .min(1, { message: "Number of long flights is required." })
-    .transform((val) => Number(val))
-    .refine((val) => !isNaN(val) && val >= 0, {
-      message: "Number of long flights must be a positive number.",
-    }),
-
-  recycleNewspapers: z.boolean().default(false),
-  recycleAluminums: z.boolean().default(false),
-});
-
-type FormData = z.infer<typeof formSchema>;
-interface CarbonCalculatorProps {
-  onSubmit: (data: FormData) => void;
+interface FormData {
+  electricBill: string;
+  gasBill: string;
+  oilBill: string;
+  mileage: string;
+  shortFlights: string;
+  longFlights: string;
+  recycleNewspaper: boolean;
+  recycleAluminum: boolean;
 }
 
-const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ onSubmit }) => {
-  const form = useForm<FormData>({
-    resolver: zodResolver(formSchema),
+interface CalculatorProps {
+  onCalculate: (co2e: number, pounds: number) => void;
+}
+
+const CarbonCalculator: React.FC<CalculatorProps> = ({ onCalculate }) => {
+  const initialFormData: FormData = {
+    electricBill: "",
+    gasBill: "",
+    oilBill: "",
+    mileage: "",
+    shortFlights: "",
+    longFlights: "",
+    recycleNewspaper: false,
+    recycleAluminum: false,
+  };
+
+  const [formData, setFormData] = useState<FormData>({
+    electricBill: "",
+    gasBill: "",
+    oilBill: "",
+    mileage: "",
+    shortFlights: "",
+    longFlights: "",
+    recycleNewspaper: false,
+    recycleAluminum: false,
   });
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === "checkbox" ? checked : value,
+    });
+  };
+
+  const calculateFootprint = () => {
+    const electricFootprint = parseFloat(formData.electricBill || "0") * 105;
+    const gasFootprint = parseFloat(formData.gasBill || "0") * 105;
+    const oilFootprint = parseFloat(formData.oilBill || "0") * 113;
+    const carFootprint = parseFloat(formData.mileage || "0") * 0.79;
+    const shortFlightFootprint =
+      parseFloat(formData.shortFlights || "0") * 1100;
+    const longFlightFootprint = parseFloat(formData.longFlights || "0") * 4400;
+    const newspaperFootprint = formData.recycleNewspaper ? 0 : 184;
+    const aluminumFootprint = formData.recycleAluminum ? 0 : 166;
+
+    const totalFootprintCO2e =
+      electricFootprint +
+      gasFootprint +
+      oilFootprint +
+      carFootprint +
+      shortFlightFootprint +
+      longFlightFootprint +
+      newspaperFootprint +
+      aluminumFootprint;
+
+    const totalFootprintPounds = totalFootprintCO2e * 2.20462;
+
+    onCalculate(totalFootprintCO2e, totalFootprintPounds);
+  };
+
+  const resetForm = () => {
+    setFormData(initialFormData);
+  };
+
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        {/* Monthly Electric Bill */}
-        <FormField
-          control={form.control}
+    <div className="bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto">
+      <h2 className="text-xl font-semibold mb-4">
+        Carbon Footprint Calculator
+      </h2>
+      <div className="space-y-4">
+        <input
+          type="number"
           name="electricBill"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  placeholder="Monthly Electric Bill (INR)"
-                  {...field}
-                  className="w-full"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          placeholder="Monthly Electric Bill (INR)"
+          value={formData.electricBill}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
         />
-
-        {/* Monthly Gas Bill */}
-        <FormField
-          control={form.control}
+        <input
+          type="number"
           name="gasBill"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  placeholder="Monthly Gas Bill (INR)"
-                  {...field}
-                  className="w-full"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          placeholder="Monthly Gas Bill (INR)"
+          value={formData.gasBill}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
         />
-
-        {/* Monthly Oil Bill */}
-        <FormField
-          control={form.control}
+        <input
+          type="number"
           name="oilBill"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  placeholder="Monthly Oil Bill (INR)"
-                  {...field}
-                  className="w-full"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          placeholder="Monthly Oil Bill (INR)"
+          value={formData.oilBill}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
         />
-
-        {/* Yearly Car Mileage */}
-        <FormField
-          control={form.control}
-          name="carMileage"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  placeholder="Yearly Car Mileage"
-                  {...field}
-                  className="w-full"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+        <input
+          type="number"
+          name="mileage"
+          placeholder="Yearly Car Mileage"
+          value={formData.mileage}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
         />
-
-        {/* Number of Short Flights */}
-        <FormField
-          control={form.control}
+        <input
+          type="number"
           name="shortFlights"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  placeholder="Number of Short Flights"
-                  {...field}
-                  className="w-full"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          placeholder="Number of short flights"
+          value={formData.shortFlights}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
         />
-
-        {/* Number of Long Flights */}
-        <FormField
-          control={form.control}
+        <input
+          type="number"
           name="longFlights"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  placeholder="Number of Long Flights"
-                  {...field}
-                  className="w-full"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          placeholder="Number of long flights"
+          value={formData.longFlights}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
         />
-
-        {/* Recycle Newspapers */}
-        <FormField
-          control={form.control}
-          name="recycleNewspapers"
-          render={({ field }) => (
-            <FormItem>
-              <div className="flex text-white items-center space-x-2">
-                <Checkbox
-                  id="recycleNewspapers"
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-                <label
-                  htmlFor="recycleNewspapers"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  Do you Recycle Newspapers?
-                </label>
-              </div>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="recycleAluminums"
-          render={({ field }) => (
-            <FormItem>
-              <div className="flex text-white items-center space-x-2">
-                <Checkbox
-                  id="recycleAluminums"
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-                <label
-                  htmlFor="recycleAluminums"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  Do you Recycle Aluminums?
-                </label>
-              </div>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <Button type="submit" className="w-fit text-lg flex items-center justify-center bg-[#3DC19E]">
-          Submit
-        </Button>
-      </form>
-    </Form>
+        <label className="flex items-center space-x-2">
+          <input
+            type="checkbox"
+            name="recycleNewspaper"
+            checked={formData.recycleNewspaper}
+            onChange={handleChange}
+            className="h-4 w-4"
+          />
+          <span>Do you recycle newspaper?</span>
+        </label>
+        <label className="flex items-center space-x-2">
+          <input
+            type="checkbox"
+            name="recycleAluminum"
+            checked={formData.recycleAluminum}
+            onChange={handleChange}
+            className="h-4 w-4"
+          />
+          <span>Do you recycle aluminum?</span>
+        </label>
+        <button
+          onClick={calculateFootprint}
+          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition"
+        >
+          Calculate
+        </button>
+        <button
+          onClick={resetForm}
+          className="w-full bg-gray-500 text-white py-2 rounded hover:bg-gray-600 transition mt-2"
+        >
+          Reset
+        </button>
+      </div>
+    </div>
   );
 };
 
