@@ -70,14 +70,14 @@ export const products: Product[] = [
     name: "Laptop",
     brand: "Brand A",
     model: "Model X",
-    category: "Electronics",
+    category: "Consumer Electronics",
     footprint: 50,
   },
   {
     name: "Laptop",
     brand: "Brand B",
     model: "Model Y",
-    category: "Electronics",
+    category: "Consumer Electronics",
     footprint: 80,
   },
   {
