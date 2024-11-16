@@ -64,11 +64,11 @@ const Divider = () => <div className="w-3/4 border-t border-gray-300"></div>;
 
 const MessageSection = () => (
   <div className="text-center w-full mt-8">
-    <div className="w-3/4 mx-auto border-t-4 border-blue-500"></div>
-    <p className="text-green-700 font-semibold text-lg my-4">
+    <div className="w-full mx-auto border-t-4 border-[#126EBA]"></div>
+    <p className="text-green-700 font-semibold text-4xl my-4">
       Track your choices and reduce your impact!
     </p>
-    <div className="w-3/4 mx-auto border-t-4 border-blue-500"></div>
+    <div className="w-4/5 mx-auto border-t-4 border-[#126EBA]"></div>
   </div>
 );
 

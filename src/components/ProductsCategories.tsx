@@ -22,33 +22,33 @@ type Product = {
 const ProductCategories = () => {
   const categories: Category[] = [
     {
-      name: "Electronics",
+      name: "Consumer Electronics",
       subcategories: ["Mobile Phones", "Laptops", "Cameras"],
       icons: "/images/categories/electronic.png",
       description: "Laptops, Smartphones, TV and much more.....",
     },
     {
-      name: "Clothing and Apparels",
-      subcategories: ["Men's Wear", "Women's Wear", "Kids' Wear"],
-      icons: "/images/categories/fashion.png",
-      description: "Tables, Wardrobes, Sofas and much more......",
-    },
-    {
-      name: "Household Essentials",
-      subcategories: ["Cleaning Supplies", "Kitchenware", "Bedding"],
-      icons: "/images/categories/household.png",
-      description: "Food Items, Health Drinks and much more.....",
-    },
-    {
       name: "Furniture",
       subcategories: ["Living Room", "Bedroom", "Office"],
       icons: "/images/categories/furniture.png",
-      description: "Menswear, Bags, Shoes and much more......",
+      description: "Tables, Wardrobes, Sofas and much more......",
     },
     {
       name: "Groceries",
       subcategories: ["Fruits", "Vegetables", "Dairy"],
       icons: "/images/categories/groceries.png",
+      description: "Food Items, Health Drinks and much more.....",
+    },
+    {
+      name: "Fashion and Apparels",
+      subcategories: ["Men's Wear", "Women's Wear", "Kids' Wear"],
+      icons: "/images/categories/fashion.png",
+      description: "Menswear, Bags, Shoes and much more......",
+    },
+    {
+      name: "Household Essentials",
+      subcategories: ["Cleaning Supplies", "Kitchenware", "Bedding"],
+      icons: "/images/categories/household.png",
       description: "Toiletries, Draperies, Cleaners and much more......",
     },
   ];
@@ -118,10 +118,10 @@ const ProductCategories = () => {
 
   return (
     <div className="flex flex-col w-full">
-      <div className="flex flex-row w-full">
-        <div className="bg-[#D6ECEF] rounded-xl flex flex-col p-4 mb-2 w-full lg:w-[65%] box-border">
+      <div className="flex flex-row w-full gap-x-20 mx-8">
+        <div className="bg-[#D6ECEF] rounded-xl flex flex-col p-4 mb-2 w-full lg:w-[50%] box-border">
           <div className="p-4 mb-4">
-            <h2 className="text-2xl font-bold text-gray-800 mb-5">
+            <h2 className="text-2xl font-bold text-gray-800 mb-3">
               CATEGORIES
             </h2>
           </div>
@@ -139,16 +139,21 @@ const ProductCategories = () => {
               </h3>
 
               {/* Display subcategories */}
-              {selectedCategory.subcategories.map((subcategory, index) => (
-  <div
-    key={index}
-    className="flex items-center border border-gray-300 h-20 rounded-md p-3 bg-gray-100 hover:bg-gray-200 cursor-pointer transition-transform transform hover:translate-y-[-3px]"
-    onClick={() => handleSubcategoryClick(subcategory)}
-  >
-    <span className="text-lg text-gray-800">{subcategory}</span>
-  </div>
-))}
-
+              {selectedCategory.subcategories && (
+                <div className="flex flex-col gap-y-20">
+                  {selectedCategory.subcategories.map((subcategory, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center border border-gray-300 h-20 rounded-md p-3 bg-gray-100 hover:bg-gray-200 cursor-pointer transition-transform transform hover:translate-y-[-3px]"
+                      onClick={() => handleSubcategoryClick(subcategory)}
+                    >
+                      <span className="text-lg text-gray-800">
+                        {subcategory}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
 
               {/* Show products for selected subcategory */}
               {selectedSubcategory && (
@@ -160,8 +165,11 @@ const ProductCategories = () => {
                     .filter(
                       (product) =>
                         product.category === selectedCategory.name &&
-                        product.name.includes(selectedSubcategory) // Filter by category & subcategory
+                        selectedCategory.subcategories.includes(
+                          selectedSubcategory
+                        )
                     )
+
                     .map((product, index) => (
                       <div
                         key={index}
@@ -186,11 +194,11 @@ const ProductCategories = () => {
               )}
             </div>
           ) : (
-            <div className="flex flex-col gap-y-20 w-full">
+            <div className="flex flex-col gap-y-6 w-full">
               {categories.map((category, index) => (
                 <div
                   key={index}
-                  className="flex items-center justify-between border border-gray-300 h-20 drop-shadow-sm rounded-md p-3 bg-gray-100 hover:bg-gray-200 cursor-pointer transition-transform transform hover:translate-y-[-3px]"
+                  className="flex items-center justify-between border border-gray-300 h-32 drop-shadow-sm rounded-2xl mx-16 p-3 bg-gray-100 hover:bg-gray-200 cursor-pointer transition-transform transform hover:translate-y-[-3px]"
                   onClick={() => handleCategoryClick(category)}
                 >
                   <div className="flex gap-x-3 items-center">
@@ -217,7 +225,7 @@ const ProductCategories = () => {
           )}
         </div>
 
-        <div className="flex flex-col gap-y-5 items-center w-full lg:w-[25%]">
+        <div className="flex flex-col gap-y-5 items-center w-full lg:w-[35%]">
           <Steps />
         </div>
       </div>
