@@ -64,12 +64,20 @@ const ProductCategories = () => {
 
   const handleCategoryClick = (category: Category) => {
     setSelectedCategory(category);
-    setSelectedSubcategory(null); // Reset subcategory when a new category is clicked
+    setSelectedSubcategory(null);
   };
 
   const handleSubcategoryClick = (subcategory: string) => {
-    setSelectedSubcategory(subcategory);
+    const matchedCategory = categories.find((category) =>
+      category.subcategories.includes(subcategory)
+    );
+  
+    if (matchedCategory) {
+      setSelectedCategory(matchedCategory);
+      setSelectedSubcategory(subcategory); // Update if needed
+    }
   };
+  
 
   const handleAddProduct = (product: Product) => {
     setAddedProducts([...addedProducts, product]);
@@ -131,21 +139,16 @@ const ProductCategories = () => {
               </h3>
 
               {/* Display subcategories */}
-              {selectedCategory.subcategories && (
-                <div className="flex flex-col gap-y-20">
-                  {selectedCategory.subcategories.map((subcategory, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center border border-gray-300 h-20 rounded-md p-3 bg-gray-100 hover:bg-gray-200 cursor-pointer transition-transform transform hover:translate-y-[-3px]"
-                      onClick={() => handleSubcategoryClick(subcategory)}
-                    >
-                      <span className="text-lg text-gray-800">
-                        {subcategory}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              )}
+              {selectedCategory.subcategories.map((subcategory, index) => (
+  <div
+    key={index}
+    className="flex items-center border border-gray-300 h-20 rounded-md p-3 bg-gray-100 hover:bg-gray-200 cursor-pointer transition-transform transform hover:translate-y-[-3px]"
+    onClick={() => handleSubcategoryClick(subcategory)}
+  >
+    <span className="text-lg text-gray-800">{subcategory}</span>
+  </div>
+))}
+
 
               {/* Show products for selected subcategory */}
               {selectedSubcategory && (
