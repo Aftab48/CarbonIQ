@@ -82,7 +82,7 @@ const Calculator: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex justify-center items-center w-full px-4">
+        <div className="flex justify-center items-center gap-x-4 w-full px-4">
           {/* Left Side - Calculator */}
           <div className="bg-[#082F4F] rounded-2xl flex flex-col p-4 mb-2 w-full lg:w-[45%]">
             <div className="p-4 mb-4">

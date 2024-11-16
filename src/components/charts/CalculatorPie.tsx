@@ -1,5 +1,6 @@
 import { Breakdown } from "@/sections/Calculator";
 import { Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import EmissionStatsPie from "./EmissionStatsPie";
 
 interface CalculatorPieComponentProps {
   data: Breakdown;
@@ -55,8 +56,10 @@ const CalculatorPie: React.FC<CalculatorPieComponentProps> = ({ data }) => {
   // If no data is available, render a blank chart with zero values
   if (chartData.every((item) => item.value === 0)) {
     return (
-      <div className="rounded-2xl bg-blue-400/50 p-4 m-2 h-96 overflow-visible flex justify-center items-center">
-        <p>No data available for the chart</p>
+      <div className="rounded-2xl bg-blue-400/50 m-2 h-full overflow-visible flex justify-center items-center">
+        <div className="w-[350px] h-[430px] p-8">
+          <EmissionStatsPie />
+        </div>
       </div>
     );
   }
